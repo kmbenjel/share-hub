@@ -594,11 +594,11 @@
             <!-- Campaign Settings (UTM Tracking) -->
             <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-glass);">
                 <label class="switch-label">
-                    <input type="checkbox" class="switch-input" id="enable-utm" onchange="toggleUtmFields()" checked>
+                    <input type="checkbox" class="switch-input" id="enable-utm" onchange="toggleUtmFields()">
                     <span>تفعيل تتبع الزوار (UTM Parameters)</span>
                 </label>
                 
-                <div class="utm-fields active" id="utm-fields-container">
+                <div class="utm-fields" id="utm-fields-container">
                     <div class="input-group">
                         <label for="utm-campaign">اسم الحملة (Campaign)</label>
                         <input type="text" id="utm-campaign" class="input-field" value="share-portal" oninput="updateUrls()">
