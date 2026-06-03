@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة مشاركة قصيدة حمار الشعراء</title>
+    
+    <!-- Meta tags for SEO & Social Previews -->
+    <meta name="description" content="أداة تفاعلية متطورة لمشاركة قصيدة حمار الشعراء للعلامة د. عبد الهادي حميتو على منصات التواصل الاجتماعي المختلفة.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="بوابة مشاركة قصيدة حمار الشعراء">
+    <meta property="og:description" content="شارك القصيدة بنقرة واحدة مع نصوص مهيأة بالكامل لمختلف المنصات.">
+    <meta property="og:image" content="https://benjelloun.dev/hmittou/assets/hmittou-soundcloud-artwork.png">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Colors */
+            --bg-primary: #0a0e17;
+            --bg-secondary: #131926;
+            --bg-glass: rgba(19, 25, 38, 0.6);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent: #d97706; /* Amber Gold matching hmittou theme */
+            --accent-glow: rgba(217, 119, 6, 0.15);
+            
+            /* Social Colors */
+            --color-whatsapp: #25d366;
+            --color-telegram: #0088cc;
+            --color-x: #000000;
+            --color-linkedin: #0077b5;
+            --color-facebook: #1877f2;
+            
+            /* Font stacks */
+            --font-arabic: 'Cairo', 'Amiri', system-ui, -apple-system, sans-serif;
+            --transition-speed: 0.3s;
+        }
+
+        .light-mode {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-glass: rgba(255, 255, 255, 0.7);
+            --border-glass: rgba(0, 0, 0, 0.06);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent: #b45309;
+            --accent-glow: rgba(180, 83, 9, 0.08);
+            --color-x: #0f1419;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-arabic);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 1rem;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(217, 119, 6, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 136, 204, 0.03) 0%, transparent 40%);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .main-container {
+            max-width: 900px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Glass Card Component */
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 1.75rem;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+            transition: border var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        .glass-card:hover {
+            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.4);
+            border-color: rgba(217, 119, 6, 0.2);
+        }
+
+        /* Preview Panel */
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .preview-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .preview-title i {
+            color: var(--accent);
+        }
+
+        .preview-bubble {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 1.25rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            position: relative;
+            font-family: var(--font-arabic);
+            color: var(--text-primary);
+            transition: background var(--transition-speed);
+        }
+
+        /* Simulated chat bubble tails/styling */
+        .preview-bubble.whatsapp {
+            background: rgba(37, 211, 102, 0.08);
+            border-right: 4px solid var(--color-whatsapp);
+        }
+
+        .preview-bubble.telegram {
+            background: rgba(0, 136, 204, 0.08);
+            border-right: 4px solid var(--color-telegram);
+        }
+
+        /* Action Buttons Grid */
+        .grid-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .share-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            .share-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .share-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            border: none;
+            border-radius: 14px;
+            font-family: var(--font-arabic);
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+            text-align: center;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.1);
+        }
+
+        .share-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Platform specific styles */
+        .btn-whatsapp {
+            background-color: var(--color-whatsapp);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+        .btn-telegram {
+            background-color: var(--color-telegram);
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
+        }
+        .btn-x {
+            background-color: var(--color-x);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .light-mode .btn-x {
+            color: white;
+        }
+        .btn-linkedin {
+            background-color: var(--color-linkedin);
+            box-shadow: 0 4px 15px rgba(0, 119, 181, 0.3);
+        }
+        .btn-facebook {
+            background-color: var(--color-facebook);
+            box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
+        }
+        .btn-copy {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+            border: 1px solid var(--border-glass);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        .btn-copy:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .btn-native {
+            background: linear-gradient(135deg, var(--accent), #f59e0b);
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
+        }
+
+        /* Strategy panel additions */
+        .strategy-panel {
+            margin-top: 2rem;
+            grid-column: 1 / -1;
+        }
+
+        .settings-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            align-items: center;
+        }
+
+        .switch-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .switch-input {
+            appearance: none;
+            width: 40px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            position: relative;
+            outline: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .switch-input:checked {
+            background: var(--accent);
+        }
+
+        .switch-input::before {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: white;
+            top: 2px;
+            right: 2px;
+            transition: transform 0.3s;
+        }
+
+        .switch-input:checked::before {
+            transform: translateX(-20px);
+        }
+
+        /* UTM generator view */
+        .utm-fields {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border-glass);
+        }
+
+        .utm-fields.active {
+            display: grid;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            color: var(--text-primary);
+            padding: 0.6rem 0.8rem;
+            border-radius: 10px;
+            outline: none;
+            font-family: var(--font-arabic);
+            font-size: 0.9rem;
+            transition: border-color var(--transition-speed);
+        }
+
+        .input-field:focus {
+            border-color: var(--accent);
+        }
+
+        /* QR Code Modal / Area */
+        .qr-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed var(--border-glass);
+            border-radius: 16px;
+            margin-top: 1.5rem;
+        }
+
+        .qr-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .qr-placeholder {
+            width: 160px;
+            height: 160px;
+            background: white;
+            border-radius: 12px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+        }
+
+        .qr-placeholder:hover {
+            transform: scale(1.05);
+        }
+
+        .qr-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .qr-info {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.75rem;
+        }
+
+        /* Floating Settings (Theme Toggle) */
+        .theme-toggle-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 100;
+            transition: transform 0.2s, background-color var(--transition-speed);
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            border-color: var(--accent);
+        }
+
+        /* Copy Success Feedback Overlay */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 50%;
+            transform: translateX(50%) translateY(100px);
+            background: var(--accent);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 10px 25px rgba(217, 119, 6, 0.4);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s;
+            z-index: 1000;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toast.show {
+            transform: translateX(50%) translateY(0);
+            opacity: 1;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-glass);
+            padding-top: 1.5rem;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Back to site link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        /* Utility style for custom title layout */
+        .preview-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://benjelloun.dev/hmittou" class="back-link">
+        <i class="fa-solid fa-arrow-right"></i> العودة للقصيدة الرئيسية
+    </a>
+
+    <header>
+        <h1>بوابة مشاركة قصيدة حمار الشعراء</h1>
+        <p>أداة ذكية لتسهيل مشاركة الرجز والضبط الفني على مختلف منصات التواصل الاجتماعي</p>
+    </header>
+
+    <div class="main-container">
+        
+        <!-- Right side: Sharing Buttons Grid -->
+        <div class="glass-card">
+            <h2 class="grid-title">
+                <i class="fa-solid fa-share-nodes"></i> اختر منصة النشر
+            </h2>
+            <div class="share-grid">
+                
+                <a href="#" id="share-whatsapp" class="share-btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-whatsapp fa-lg"></i> واتساب
+                </a>
+                
+                <a href="#" id="share-telegram" class="share-btn btn-telegram" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-telegram fa-lg"></i> تيليجرام
+                </a>
+                
+                <a href="#" id="share-x" class="share-btn btn-x" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-x-twitter fa-lg"></i> إكس (تويتر)
+                </a>
+                
+                <a href="#" id="share-linkedin" class="share-btn btn-linkedin" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin fa-lg"></i> لينكد إن
+                </a>
+                
+                <a href="#" id="share-facebook" class="share-btn btn-facebook" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook fa-lg"></i> فيسبوك
+                </a>
+                
+                <button type="button" id="btn-copy-clipboard" class="share-btn btn-copy" onclick="copyShareText()">
+                    <i class="fa-regular fa-copy fa-lg"></i> نسخ النص
+                </button>
+                
+                <button type="button" id="btn-native-share" class="share-btn btn-native" style="display: none;" onclick="triggerNativeShare()">
+                    <i class="fa-solid fa-share-from-square fa-lg"></i> مشاركة الهاتف
+                </button>
+                
+            </div>
+            
+            <div class="qr-section">
+                <h3 class="qr-title"><i class="fa-solid fa-qrcode"></i> رمز الاستجابة السريعة (QR Code)</h3>
+                <div class="qr-placeholder" id="qr-container">
+                    <!-- Loaded dynamically to avoid static URLs -->
+                    <img id="qr-image" src="" alt="QR Code Link">
+                </div>
+                <p class="qr-info">امسح الكود بكاميرا الهاتف لفتح موقع القصيدة مباشرة</p>
+            </div>
+        </div>
+
+        <!-- Left side: Live Preview and Customization -->
+        <div class="glass-card">
+            <div class="preview-header">
+                <h2 class="preview-title">
+                    <i class="fa-solid fa-eye"></i> معاينة النص المشارك
+                </h2>
+                <div class="preview-meta">
+                    <span id="char-counter">0</span> حرفاً
+                </div>
+            </div>
+            
+            <div class="preview-bubble whatsapp" id="live-preview-box">
+                <!-- Text loaded dynamically from Javascript -->
+            </div>
+
+            <!-- Campaign Settings (UTM Tracking) -->
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-glass);">
+                <label class="switch-label">
+                    <input type="checkbox" class="switch-input" id="enable-utm" onchange="toggleUtmFields()">
+                    <span>تفعيل تتبع الزوار (UTM Parameters)</span>
+                </label>
+                
+                <div class="utm-fields" id="utm-fields-container">
+                    <div class="input-group">
+                        <label for="utm-campaign">اسم الحملة (Campaign)</label>
+                        <input type="text" id="utm-campaign" class="input-field" value="share-portal" oninput="updateUrls()">
+                    </div>
+                    <div class="input-group">
+                        <label for="utm-medium">الوسيط (Medium)</label>
+                        <input type="text" id="utm-medium" class="input-field" value="social" oninput="updateUrls()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Strategy and Advice Card (Helpful tools & tactics) -->
+    <div class="glass-card strategy-panel" style="max-width: 900px; width: 100%;">
+        <h2 class="grid-title" style="color: var(--accent);">
+            <i class="fa-solid fa-lightbulb"></i> إستراتيجية ومقترحات النشر والتطوير لموقع hmittou
+        </h2>
+        <div style="font-size: 0.95rem; line-height: 1.8; color: var(--text-secondary); display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            
+            <div>
+                <h3 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.05rem;">🔗 كيف تعمل المنصات تقنياً؟</h3>
+                <ul style="padding-right: 1.2rem; margin-bottom: 1rem;">
+                    <li><strong>واتساب وتيليجرام:</strong> تدعم الروابط المباشرة مع النص المرفق كاملاً (بما في ذلك السطور والرموز 🔗).</li>
+                    <li><strong>إكس (تويتر):</strong> تدعم النصوص حتى 280 حرفاً. النص الحالي تم تهيئته ليتسع بالكامل بـ 120 حرفاً.</li>
+                    <li><strong>فيسبوك ولينكد إن:</strong> لا تسمح القوانين البرمجية الحديثة لهما بملء مربع النص مسبقاً (لمنع النشر المزعج)، وتقوم المنصتان بقراءة <strong>Open Graph Meta Tags</strong> من الرابط تلقائياً وعرض صورة الغلاف والوصف بشكل جذاب. قمنا بإضافة زر "نسخ النص" كخيار إضافي للمستخدم ليلصقه يدوياً في حال رغب بذلك.</li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.05rem;">💡 أدوات تكتيكية مقترحة للمشروع</h3>
+                <ul style="padding-right: 1.2rem;">
+                    <li><strong>تفعيل UTM Tracking:</strong> الميزة مدمجة هنا! عند تفعيلها، سيتم إدراج معرفات مثل <code style="background: rgba(255,255,255,0.05); padding: 2px 4px; border-radius: 4px; font-size: 0.85rem;">?utm_source=twitter</code> لتتمكن من معرفة الإحصائيات في Google Analytics أو Plausible بدقة بالغة.</li>
+                    <li><strong>أداة Web Share API:</strong> مدمجة برمجياً، ستظهر تلقائياً لمستخدمي الهواتف الذكية (سفاري على الآيفون أو كروم على أندرويد) لفتح نافذة المشاركة الأصلية للهاتف وإرسال النص لأي تطبيق (مثل Signal أو SMS).</li>
+                    <li><strong>مولد الكود السريع QR Code:</strong> مدمج للاستخدام عند العروض التوضيحية أو النشرات المطبوعة.</li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Theme Switcher Floating Button -->
+    <button type="button" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="تبديل المظهر" title="تبديل المظهر">
+        <i class="fa-solid fa-moon" id="theme-icon"></i>
+    </button>
+
+    <!-- Copy Success Toast Toast -->
+    <div class="toast" id="toast-message">
+        <i class="fa-solid fa-circle-check"></i> تم نسخ النص بنجاح!
+    </div>
+
+    <footer>
+        <p>بوابة المشاركة الخاصة بمشروع حمار الشعراء • برمجة خالد بنجلّون</p>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">تطوير مستلهم مبني على أفضل ممارسات الويب الحديثة للعلامة د. عبد الهادي حميتو رحمه الله</p>
+    </footer>
+
+    <script>
+        // Core Configurations
+        const CONFIG = {
+            targetUrl: 'https://benjelloun.dev/hmittou',
+            rawText: `*حمار الشعراء*
+رجز للعلّامة د. عبد الهادي حميتو رحمه الله.
+قراءة وضبط وبرمجة: خالد بنجلّون
+🔗 {url}`
+        };
+
+        // DOM elements
+        const livePreviewBox = document.getElementById('live-preview-box');
+        const charCounter = document.getElementById('char-counter');
+        const enableUtmCheckbox = document.getElementById('enable-utm');
+        const utmFieldsContainer = document.getElementById('utm-fields-container');
+        const utmCampaignInput = document.getElementById('utm-campaign');
+        const utmMediumInput = document.getElementById('utm-medium');
+        
+        // Share buttons
+        const waLink = document.getElementById('share-whatsapp');
+        const tgLink = document.getElementById('share-telegram');
+        const xLink = document.getElementById('share-x');
+        const liLink = document.getElementById('share-linkedin');
+        const fbLink = document.getElementById('share-facebook');
+        const nativeShareBtn = document.getElementById('btn-native-share');
+        const qrImage = document.getElementById('qr-image');
+
+        // Theme handling
+        function initTheme() {
+            const savedTheme = localStorage.getItem('share-portal-theme') || 'dark';
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                document.getElementById('theme-icon').className = 'fa-solid fa-sun';
+            } else {
+                document.body.classList.remove('light-mode');
+                document.getElementById('theme-icon').className = 'fa-solid fa-moon';
+            }
+        }
+
+        function toggleTheme() {
+            const isLight = document.body.classList.toggle('light-mode');
+            localStorage.setItem('share-portal-theme', isLight ? 'light' : 'dark');
+            document.getElementById('theme-icon').className = isLight ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        }
+
+        // Toggle UTM Fields
+        function toggleUtmFields() {
+            const isEnabled = enableUtmCheckbox.checked;
+            if (isEnabled) {
+                utmFieldsContainer.classList.add('active');
+            } else {
+                utmFieldsContainer.classList.remove('active');
+            }
+            updateUrls();
+        }
+
+        // Generate Sharing URLs based on options
+        function updateUrls() {
+            const isUtmEnabled = enableUtmCheckbox.checked;
+            const campaign = encodeURIComponent(utmCampaignInput.value || 'share-portal');
+            const medium = encodeURIComponent(utmMediumInput.value || 'social');
+            
+            // Build URL helper
+            const getShareUrlFor = (source) => {
+                if (!isUtmEnabled) return CONFIG.targetUrl;
+                return `${CONFIG.targetUrl}?utm_source=${source}&utm_medium=${medium}&utm_campaign=${campaign}`;
+            };
+
+            // Platform link updates
+            const waUrl = getShareUrlFor('whatsapp');
+            const waText = CONFIG.rawText.replace('{url}', waUrl);
+            waLink.setAttribute('href', `https://api.whatsapp.com/send?text=${encodeURIComponent(waText)}`);
+
+            const tgUrl = getShareUrlFor('telegram');
+            const tgText = CONFIG.rawText.replace('{url}', tgUrl);
+            // Telegram sharing API: https://t.me/share/url?url={url}&text={text}
+            tgLink.setAttribute('href', `https://t.me/share/url?url=${encodeURIComponent(tgUrl)}&text=${encodeURIComponent(CONFIG.rawText.replace('🔗 {url}', '').trim())}`);
+
+            const xUrl = getShareUrlFor('twitter');
+            const xText = CONFIG.rawText.replace('{url}', xUrl);
+            xLink.setAttribute('href', `https://x.com/intent/tweet?text=${encodeURIComponent(xText)}`);
+
+            const liUrl = getShareUrlFor('linkedin');
+            liLink.setAttribute('href', `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(liUrl)}`);
+
+            const fbUrl = getShareUrlFor('facebook');
+            fbLink.setAttribute('href', `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(fbUrl)}`);
+
+            // Update live preview box (based on default or WhatsApp style text)
+            const defaultFullText = CONFIG.rawText.replace('{url}', getShareUrlFor('share-link'));
+            livePreviewBox.textContent = defaultFullText;
+            charCounter.textContent = defaultFullText.length;
+
+            // QR Code dynamic loading
+            const qrDataUrl = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(getShareUrlFor('qrcode'))}`;
+            qrImage.setAttribute('src', qrDataUrl);
+        }
+
+        // Copy Share Text to Clipboard
+        function copyShareText() {
+            const textToCopy = livePreviewBox.textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast();
+            }).catch(err => {
+                console.error('فشل نسخ النص: ', err);
+            });
+        }
+
+        // Toast feedback
+        function showToast() {
+            const toast = document.getElementById('toast-message');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        // Web Share API (native share on mobile)
+        function checkNativeShareSupport() {
+            if (navigator.share) {
+                nativeShareBtn.style.display = 'flex';
+            }
+        }
+
+        function triggerNativeShare() {
+            const isUtmEnabled = enableUtmCheckbox.checked;
+            const campaign = encodeURIComponent(utmCampaignInput.value || 'share-portal');
+            const medium = encodeURIComponent(utmMediumInput.value || 'social');
+            const nativeUrl = isUtmEnabled 
+                ? `${CONFIG.targetUrl}?utm_source=nativeshare&utm_medium=${medium}&utm_campaign=${campaign}`
+                : CONFIG.targetUrl;
+            
+            const shareData = {
+                title: 'حمار الشعراء',
+                text: `رجز للعلّامة د. عبد الهادي حميتو رحمه الله.\nقراءة وضبط وبرمجة: خالد بنجلّون`,
+                url: nativeUrl
+            };
+
+            navigator.share(shareData).catch((error) => console.log('فشلت المشاركة الأصلية:', error));
+        }
+
+        // Initial setup
+        window.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            updateUrls();
+            checkNativeShareSupport();
+            
+            // Add custom hover changes to preview box style (simulate platforms)
+            waLink.addEventListener('mouseenter', () => {
+                livePreviewBox.className = "preview-bubble whatsapp";
+            });
+            tgLink.addEventListener('mouseenter', () => {
+                livePreviewBox.className = "preview-bubble telegram";
+            });
+            xLink.addEventListener('mouseenter', () => {
+                livePreviewBox.className = "preview-bubble";
+            });
+        });
+    </script>
+</body>
+</html>
