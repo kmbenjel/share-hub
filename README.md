@@ -15,6 +15,7 @@ Website URL: https://benjelloun.dev/hmittou
    * **LinkedIn / Facebook**: URL sharing with title/summary or quote where supported, plus automatic clean-text copy before opening as a reliable fallback.
    * **Clipboard Copy**: One-click clean text copying with no markdown stars.
    * **Web Share API**: Native mobile sharing for iOS and Android using clean text plus URL.
+   * **Post image download**: Optional downloadable image asset users can attach manually to posts.
 
 2. **Aesthetics & UX**:
    * Beautiful modern glassmorphism UI.
