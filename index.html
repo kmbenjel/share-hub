@@ -161,11 +161,16 @@
             color: var(--accent);
         }
 
+        .preview-shell {
+            position: relative;
+        }
+
         .preview-bubble {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-glass);
             border-radius: 16px;
             padding: 1.25rem;
+            padding-left: 4.75rem;
             font-size: 0.95rem;
             line-height: 1.7;
             white-space: pre-wrap;
@@ -173,6 +178,40 @@
             font-family: var(--font-arabic);
             color: var(--text-primary);
             transition: background var(--transition-speed);
+            min-height: 8.4rem;
+        }
+
+        .preview-copy-btn {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            border: 1px solid var(--border-glass);
+            border-radius: 999px;
+            padding: 0.45rem 0.7rem;
+            background: rgba(10, 14, 23, 0.78);
+            color: var(--text-primary);
+            font-family: var(--font-arabic);
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .light-mode .preview-copy-btn {
+            background: rgba(255, 255, 255, 0.88);
+        }
+
+        .preview-copy-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+            background: rgba(217, 119, 6, 0.18);
         }
 
         /* Simulated chat bubble tails/styling */
@@ -217,6 +256,11 @@
         @media (max-width: 480px) {
             .share-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .preview-bubble {
+                padding-left: 1.25rem;
+                padding-top: 3.7rem;
             }
         }
 
@@ -612,8 +656,13 @@
                 </div>
             </div>
             
-            <div class="preview-bubble copy" id="live-preview-box" aria-live="polite">
-                <!-- Text loaded dynamically from Javascript -->
+            <div class="preview-shell">
+                <button type="button" class="preview-copy-btn" id="btn-copy-preview" onclick="copyShareText()" aria-label="نسخ النص المعروض">
+                    <i class="fa-regular fa-copy"></i> نسخ
+                </button>
+                <div class="preview-bubble copy" id="live-preview-box" aria-live="polite">
+                    <!-- Text loaded dynamically from Javascript -->
+                </div>
             </div>
             <p class="share-note" id="share-note">النص الصافي للنسخ لا يحتوي على علامات Markdown. واتساب وحده يستعمل النجمتين لتغليظ العنوان.</p>
 
@@ -685,7 +734,7 @@
     <script>
         // Core configuration.
         const CONFIG = {
-            targetUrl: 'https://benjelloun.dev/hmittou/',
+            targetUrl: 'https://benjelloun.dev/hmittou',
             title: 'حمار الشعراء',
             description: 'رجز للعلّامة د. عبد الهادي حميتو رحمه الله.',
             credit: 'قراءة وضبط وبرمجة: خالد بنجلّون'
@@ -718,6 +767,7 @@
         const liLink = document.getElementById('share-linkedin');
         const fbLink = document.getElementById('share-facebook');
         const copyBtn = document.getElementById('btn-copy-clipboard');
+        const previewCopyBtn = document.getElementById('btn-copy-preview');
         const nativeShareBtn = document.getElementById('btn-native-share');
         const qrImage = document.getElementById('qr-image');
 
@@ -890,6 +940,7 @@
                 [liLink, 'linkedin'],
                 [fbLink, 'facebook'],
                 [copyBtn, 'copy'],
+                [previewCopyBtn, 'copy'],
                 [nativeShareBtn, 'native']
             ];
 
