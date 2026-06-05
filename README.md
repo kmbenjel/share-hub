@@ -16,6 +16,7 @@ Website URL: https://benjelloun.dev/hmittou
    * **Clipboard Copy**: One-click clean text copying with no markdown stars.
    * **Web Share API**: Native mobile sharing for iOS and Android using clean text plus URL.
    * **Post image download**: Optional downloadable image asset users can attach manually to posts.
+   * **Dedicated social preview**: Share Hub has its own OpenGraph/Twitter card that reflects the sharing tool rather than the poem artwork.
 
 2. **Aesthetics & UX**:
    * Beautiful modern glassmorphism UI.
