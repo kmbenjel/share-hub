@@ -6,11 +6,19 @@
     <title>بوابة مشاركة قصيدة حمار الشعراء</title>
     
     <!-- Meta tags for SEO & Social Previews -->
-    <meta name="description" content="أداة تفاعلية متطورة لمشاركة قصيدة حمار الشعراء للعلامة د. عبد الهادي حميتو على منصات التواصل الاجتماعي المختلفة.">
+    <meta name="description" content="بوابة مشاركة قصيدة حمار الشعراء بنصوص مهيأة لكل منصة، مع نسخ نص صافي وروابط مشاركة مباشرة.">
     <meta property="og:type" content="website">
     <meta property="og:title" content="بوابة مشاركة قصيدة حمار الشعراء">
-    <meta property="og:description" content="شارك القصيدة بنقرة واحدة مع نصوص مهيأة بالكامل لمختلف المنصات.">
-    <meta property="og:image" content="https://benjelloun.dev/hmittou/assets/hmittou-soundcloud-artwork.png">
+    <meta property="og:description" content="شارك قصيدة حمار الشعراء بنص مناسب لكل منصة، مع نص صافي للنسخ وروابط مباشرة.">
+    <meta property="og:image" content="https://benjelloun.dev/hmittou/assets/hmittou-social-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://benjelloun.dev/share-hub/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="بوابة مشاركة قصيدة حمار الشعراء">
+    <meta name="twitter:description" content="نصوص مشاركة مهيأة لكل منصة وروابط مباشرة لقصيدة حمار الشعراء.">
+    <meta name="twitter:image" content="https://benjelloun.dev/hmittou/assets/hmittou-social-card.png">
+    <link rel="canonical" href="https://benjelloun.dev/share-hub/">
     
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -176,6 +184,18 @@
         .preview-bubble.telegram {
             background: rgba(0, 136, 204, 0.08);
             border-right: 4px solid var(--color-telegram);
+        }
+
+        .preview-bubble.copy {
+            background: rgba(217, 119, 6, 0.08);
+            border-right: 4px solid var(--accent);
+        }
+
+        .share-note {
+            margin-top: 0.85rem;
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.7;
         }
 
         /* Action Buttons Grid */
@@ -468,6 +488,11 @@
             opacity: 1;
         }
 
+        .toast.is-info {
+            background: var(--color-telegram);
+            box-shadow: 0 10px 25px rgba(0, 136, 204, 0.35);
+        }
+
         footer {
             text-align: center;
             color: var(--text-secondary);
@@ -557,7 +582,7 @@
                 </a>
                 
                 <button type="button" id="btn-copy-clipboard" class="share-btn btn-copy" onclick="copyShareText()">
-                    <i class="fa-regular fa-copy fa-lg"></i> نسخ النص
+                    <i class="fa-regular fa-copy fa-lg"></i> نسخ النص الصافي
                 </button>
                 
                 <button type="button" id="btn-native-share" class="share-btn btn-native" style="display: none;" onclick="triggerNativeShare()">
@@ -587,9 +612,10 @@
                 </div>
             </div>
             
-            <div class="preview-bubble whatsapp" id="live-preview-box">
+            <div class="preview-bubble copy" id="live-preview-box" aria-live="polite">
                 <!-- Text loaded dynamically from Javascript -->
             </div>
+            <p class="share-note" id="share-note">النص الصافي للنسخ لا يحتوي على علامات Markdown. واتساب وحده يستعمل النجمتين لتغليظ العنوان.</p>
 
             <!-- Campaign Settings (UTM Tracking) -->
             <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-glass);">
@@ -623,9 +649,9 @@
             <div>
                 <h3 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.05rem;">🔗 كيف تعمل المنصات تقنياً؟</h3>
                 <ul style="padding-right: 1.2rem; margin-bottom: 1rem;">
-                    <li><strong>واتساب وتيليجرام:</strong> تدعم الروابط المباشرة مع النص المرفق كاملاً (بما في ذلك السطور والرموز 🔗).</li>
-                    <li><strong>إكس (تويتر):</strong> تدعم النصوص حتى 280 حرفاً. النص الحالي تم تهيئته ليتسع بالكامل بـ 120 حرفاً.</li>
-                    <li><strong>فيسبوك ولينكد إن:</strong> لا تسمح القوانين البرمجية الحديثة لهما بملء مربع النص مسبقاً (لمنع النشر المزعج)، وتقوم المنصتان بقراءة <strong>Open Graph Meta Tags</strong> من الرابط تلقائياً وعرض صورة الغلاف والوصف بشكل جذاب. قمنا بإضافة زر "نسخ النص" كخيار إضافي للمستخدم ليلصقه يدوياً في حال رغب بذلك.</li>
+                    <li><strong>واتساب:</strong> يستقبل النص والرابط معاً، ويستعمل هذا الزر فقط علامات <code style="background: rgba(255,255,255,0.05); padding: 2px 4px; border-radius: 4px; font-size: 0.85rem;">*العنوان*</code> لأن واتساب يعرضها كتغليظ.</li>
+                    <li><strong>تيليجرام وإكس ومشاركة الهاتف:</strong> تستقبل نصاً صافياً مع الرابط دون علامات Markdown.</li>
+                    <li><strong>فيسبوك ولينكد إن:</strong> تعرضان غالباً بطاقة الرابط من <strong>Open Graph Meta Tags</strong> ولا تضمنان ملء مربع النص. لذلك تنسخ البوابة النص الصافي تلقائياً قبل فتحهما ليستطيع المستخدم لصقه مباشرة.</li>
                 </ul>
             </div>
 
@@ -633,7 +659,7 @@
                 <h3 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.05rem;">💡 أدوات تكتيكية مقترحة للمشروع</h3>
                 <ul style="padding-right: 1.2rem;">
                     <li><strong>تفعيل UTM Tracking:</strong> الميزة مدمجة هنا! عند تفعيلها، سيتم إدراج معرفات مثل <code style="background: rgba(255,255,255,0.05); padding: 2px 4px; border-radius: 4px; font-size: 0.85rem;">?utm_source=twitter</code> لتتمكن من معرفة الإحصائيات في Google Analytics أو Plausible بدقة بالغة.</li>
-                    <li><strong>أداة Web Share API:</strong> مدمجة برمجياً، ستظهر تلقائياً لمستخدمي الهواتف الذكية (سفاري على الآيفون أو كروم على أندرويد) لفتح نافذة المشاركة الأصلية للهاتف وإرسال النص لأي تطبيق (مثل Signal أو SMS).</li>
+                    <li><strong>أداة Web Share API:</strong> مدمجة برمجياً، وتظهر تلقائياً على الهواتف المدعومة لفتح نافذة المشاركة الأصلية وإرسال نص صافٍ مع الرابط إلى أي تطبيق.</li>
                     <li><strong>مولد الكود السريع QR Code:</strong> مدمج للاستخدام عند العروض التوضيحية أو النشرات المطبوعة.</li>
                 </ul>
             </div>
@@ -647,7 +673,7 @@
     </button>
 
     <!-- Copy Success Toast Toast -->
-    <div class="toast" id="toast-message">
+    <div class="toast" id="toast-message" role="status" aria-live="polite">
         <i class="fa-solid fa-circle-check"></i> تم نسخ النص بنجاح!
     </div>
 
@@ -657,33 +683,47 @@
     </footer>
 
     <script>
-        // Core Configurations
+        // Core configuration.
         const CONFIG = {
-            targetUrl: 'https://benjelloun.dev/hmittou',
-            rawText: `*حمار الشعراء*
-رجز للعلّامة د. عبد الهادي حميتو رحمه الله.
-قراءة وضبط وبرمجة: خالد بنجلّون
-🔗 {url}`
+            targetUrl: 'https://benjelloun.dev/hmittou/',
+            title: 'حمار الشعراء',
+            description: 'رجز للعلّامة د. عبد الهادي حميتو رحمه الله.',
+            credit: 'قراءة وضبط وبرمجة: خالد بنجلّون'
         };
 
-        // DOM elements
+        const PLATFORM_NOTES = {
+            copy: 'النص الصافي للنسخ لا يحتوي على علامات Markdown. واتساب وحده يستعمل النجمتين لتغليظ العنوان.',
+            whatsapp: 'واتساب يستقبل النص كاملاً مع الرابط، ويستعمل النجمتين حول العنوان لتغليظه.',
+            telegram: 'تيليجرام يستقبل نصاً صافياً ورابطاً منفصلاً، لذلك لا نضيف علامات Markdown ولا نكرر الرابط داخل النص.',
+            x: 'إكس يستقبل نصاً صافياً ورابطاً منفصلاً كي يبقى النص واضحاً وضمن الحد المسموح.',
+            linkedin: 'لينكد إن لا يضمن تعبئة النص مسبقاً؛ سيتم نسخ النص الصافي قبل فتح صفحة المشاركة.',
+            facebook: 'فيسبوك لا يضمن تعبئة النص مسبقاً؛ سيتم نسخ النص الصافي قبل فتح صفحة المشاركة.',
+            native: 'مشاركة الهاتف تستعمل نصاً صافياً مع الرابط، لأنها قد تفتح أي تطبيق.'
+        };
+
+        // DOM elements.
         const livePreviewBox = document.getElementById('live-preview-box');
+        const shareNote = document.getElementById('share-note');
         const charCounter = document.getElementById('char-counter');
         const enableUtmCheckbox = document.getElementById('enable-utm');
         const utmFieldsContainer = document.getElementById('utm-fields-container');
         const utmCampaignInput = document.getElementById('utm-campaign');
         const utmMediumInput = document.getElementById('utm-medium');
+        const toast = document.getElementById('toast-message');
         
-        // Share buttons
+        // Share buttons.
         const waLink = document.getElementById('share-whatsapp');
         const tgLink = document.getElementById('share-telegram');
         const xLink = document.getElementById('share-x');
         const liLink = document.getElementById('share-linkedin');
         const fbLink = document.getElementById('share-facebook');
+        const copyBtn = document.getElementById('btn-copy-clipboard');
         const nativeShareBtn = document.getElementById('btn-native-share');
         const qrImage = document.getElementById('qr-image');
 
-        // Theme handling
+        let activePreviewPlatform = 'copy';
+
+        // Theme handling.
         function initTheme() {
             const savedTheme = localStorage.getItem('share-portal-theme') || 'dark';
             if (savedTheme === 'light') {
@@ -701,79 +741,125 @@
             document.getElementById('theme-icon').className = isLight ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
         }
 
-        // Toggle UTM Fields
+        // Toggle UTM fields.
         function toggleUtmFields() {
-            const isEnabled = enableUtmCheckbox.checked;
-            if (isEnabled) {
-                utmFieldsContainer.classList.add('active');
-            } else {
-                utmFieldsContainer.classList.remove('active');
-            }
+            utmFieldsContainer.classList.toggle('active', enableUtmCheckbox.checked);
             updateUrls();
         }
 
-        // Generate Sharing URLs based on options
-        function updateUrls() {
-            const isUtmEnabled = enableUtmCheckbox.checked;
-            const campaign = encodeURIComponent(utmCampaignInput.value || 'share-portal');
-            const medium = encodeURIComponent(utmMediumInput.value || 'social');
-            
-            // Build URL helper
-            const getShareUrlFor = (source) => {
-                if (!isUtmEnabled) return CONFIG.targetUrl;
-                return `${CONFIG.targetUrl}?utm_source=${source}&utm_medium=${medium}&utm_campaign=${campaign}`;
-            };
-
-            // Platform link updates
-            const waUrl = getShareUrlFor('whatsapp');
-            const waText = CONFIG.rawText.replace('{url}', waUrl);
-            waLink.setAttribute('href', `https://api.whatsapp.com/send?text=${encodeURIComponent(waText)}`);
-
-            const tgUrl = getShareUrlFor('telegram');
-            const tgText = CONFIG.rawText.replace('{url}', tgUrl);
-            // Telegram sharing API: https://t.me/share/url?url={url}&text={text}
-            tgLink.setAttribute('href', `https://t.me/share/url?url=${encodeURIComponent(tgUrl)}&text=${encodeURIComponent(CONFIG.rawText.replace('🔗 {url}', '').trim())}`);
-
-            const xUrl = getShareUrlFor('twitter');
-            const xText = CONFIG.rawText.replace('{url}', xUrl);
-            xLink.setAttribute('href', `https://x.com/intent/tweet?text=${encodeURIComponent(xText)}`);
-
-            const liUrl = getShareUrlFor('linkedin');
-            liLink.setAttribute('href', `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(liUrl)}`);
-
-            const fbUrl = getShareUrlFor('facebook');
-            fbLink.setAttribute('href', `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(fbUrl)}`);
-
-            // Update live preview box (based on default or WhatsApp style text)
-            const defaultFullText = CONFIG.rawText.replace('{url}', getShareUrlFor('share-link'));
-            livePreviewBox.textContent = defaultFullText;
-            charCounter.textContent = defaultFullText.length;
-
-            // QR Code dynamic loading
-            const qrDataUrl = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(getShareUrlFor('qrcode'))}`;
-            qrImage.setAttribute('src', qrDataUrl);
-        }
-
-        // Copy Share Text to Clipboard
-        function copyShareText() {
-            const textToCopy = livePreviewBox.textContent;
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                showToast();
-            }).catch(err => {
-                console.error('فشل نسخ النص: ', err);
+        function buildShareUrl(source) {
+            if (!enableUtmCheckbox.checked) return CONFIG.targetUrl;
+            const params = new URLSearchParams({
+                utm_source: source,
+                utm_medium: utmMediumInput.value || 'social',
+                utm_campaign: utmCampaignInput.value || 'share-portal'
             });
+            return `${CONFIG.targetUrl}?${params.toString()}`;
         }
 
-        // Toast feedback
-        function showToast() {
-            const toast = document.getElementById('toast-message');
+        function buildShareText(platform, url, options = {}) {
+            const includeUrl = options.includeUrl !== false;
+            const title = platform === 'whatsapp' ? `*${CONFIG.title}*` : CONFIG.title;
+            const lines = [title, CONFIG.description, CONFIG.credit];
+            if (includeUrl) lines.push(`🔗 ${url}`);
+            return lines.join('\n');
+        }
+
+        function buildPlainText(url, options = {}) {
+            return buildShareText('copy', url, options);
+        }
+
+        function setPreviewPlatform(platform) {
+            activePreviewPlatform = platform;
+            updatePreview();
+        }
+
+        function updatePreview() {
+            const previewUrl = buildShareUrl(activePreviewPlatform === 'copy' ? 'copy' : activePreviewPlatform);
+            const includeUrl = !['telegram', 'x', 'native'].includes(activePreviewPlatform);
+            const text = activePreviewPlatform === 'whatsapp'
+                ? buildShareText('whatsapp', previewUrl, { includeUrl })
+                : buildPlainText(previewUrl, { includeUrl });
+
+            livePreviewBox.className = `preview-bubble ${activePreviewPlatform === 'whatsapp' ? 'whatsapp' : activePreviewPlatform === 'telegram' ? 'telegram' : 'copy'}`;
+            livePreviewBox.textContent = text;
+            shareNote.textContent = PLATFORM_NOTES[activePreviewPlatform] || PLATFORM_NOTES.copy;
+            charCounter.textContent = text.length;
+        }
+
+        // Generate sharing URLs based on options.
+        function updateUrls() {
+            const waUrl = buildShareUrl('whatsapp');
+            waLink.setAttribute('href', `https://api.whatsapp.com/send?text=${encodeURIComponent(buildShareText('whatsapp', waUrl))}`);
+
+            const tgUrl = buildShareUrl('telegram');
+            tgLink.setAttribute('href', `https://t.me/share/url?url=${encodeURIComponent(tgUrl)}&text=${encodeURIComponent(buildPlainText(tgUrl, { includeUrl: false }))}`);
+
+            const xUrl = buildShareUrl('twitter');
+            xLink.setAttribute('href', `https://x.com/intent/tweet?text=${encodeURIComponent(buildPlainText(xUrl, { includeUrl: false }))}&url=${encodeURIComponent(xUrl)}`);
+
+            const liUrl = buildShareUrl('linkedin');
+            liLink.setAttribute('href', `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(liUrl)}&title=${encodeURIComponent(CONFIG.title)}&summary=${encodeURIComponent(buildPlainText(liUrl, { includeUrl: false }))}`);
+
+            const fbUrl = buildShareUrl('facebook');
+            fbLink.setAttribute('href', `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(fbUrl)}&quote=${encodeURIComponent(buildPlainText(fbUrl, { includeUrl: false }))}`);
+
+            const qrDataUrl = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(buildShareUrl('qrcode'))}`;
+            qrImage.setAttribute('src', qrDataUrl);
+
+            updatePreview();
+        }
+
+        async function copyToClipboard(text, message = 'تم نسخ النص بنجاح!', type = 'success') {
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(text);
+                } else {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    textArea.setAttribute('readonly', '');
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = '0';
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    textArea.remove();
+                }
+                showToast(message, type);
+                return true;
+            } catch (error) {
+                console.error('فشل نسخ النص: ', error);
+                showToast('تعذر نسخ النص تلقائياً.', 'info');
+                return false;
+            }
+        }
+
+        // Copy clean, non-Markdown share text to clipboard.
+        function copyShareText() {
+            const textToCopy = buildPlainText(buildShareUrl('copy'));
+            copyToClipboard(textToCopy, 'تم نسخ النص الصافي بدون نجوم Markdown.');
+        }
+
+        async function copyBeforeOpening(platform, event) {
+            event.preventDefault();
+            const href = event.currentTarget.href;
+            const textToCopy = buildPlainText(buildShareUrl(platform));
+            await copyToClipboard(textToCopy, 'تم نسخ النص الصافي؛ الصقه في المنصة إذا لم يظهر تلقائياً.', 'info');
+            window.open(href, '_blank', 'noopener,noreferrer');
+        }
+
+        // Toast feedback.
+        function showToast(message, type = 'success') {
+            toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${message}`;
+            toast.classList.toggle('is-info', type === 'info');
             toast.classList.add('show');
             setTimeout(() => {
                 toast.classList.remove('show');
-            }, 2500);
+                toast.classList.remove('is-info');
+            }, 2800);
         }
 
-        // Web Share API (native share on mobile)
+        // Web Share API: native mobile share.
         function checkNativeShareSupport() {
             if (navigator.share) {
                 nativeShareBtn.style.display = 'flex';
@@ -781,38 +867,39 @@
         }
 
         function triggerNativeShare() {
-            const isUtmEnabled = enableUtmCheckbox.checked;
-            const campaign = encodeURIComponent(utmCampaignInput.value || 'share-portal');
-            const medium = encodeURIComponent(utmMediumInput.value || 'social');
-            const nativeUrl = isUtmEnabled 
-                ? `${CONFIG.targetUrl}?utm_source=nativeshare&utm_medium=${medium}&utm_campaign=${campaign}`
-                : CONFIG.targetUrl;
-            
+            const nativeUrl = buildShareUrl('nativeshare');
             const shareData = {
-                title: 'حمار الشعراء',
-                text: `رجز للعلّامة د. عبد الهادي حميتو رحمه الله.\nقراءة وضبط وبرمجة: خالد بنجلّون`,
+                title: CONFIG.title,
+                text: buildPlainText(nativeUrl, { includeUrl: false }),
                 url: nativeUrl
             };
 
             navigator.share(shareData).catch((error) => console.log('فشلت المشاركة الأصلية:', error));
         }
 
-        // Initial setup
+        // Initial setup.
         window.addEventListener('DOMContentLoaded', () => {
             initTheme();
             updateUrls();
             checkNativeShareSupport();
             
-            // Add custom hover changes to preview box style (simulate platforms)
-            waLink.addEventListener('mouseenter', () => {
-                livePreviewBox.className = "preview-bubble whatsapp";
+            const previewTargets = [
+                [waLink, 'whatsapp'],
+                [tgLink, 'telegram'],
+                [xLink, 'x'],
+                [liLink, 'linkedin'],
+                [fbLink, 'facebook'],
+                [copyBtn, 'copy'],
+                [nativeShareBtn, 'native']
+            ];
+
+            previewTargets.forEach(([element, platform]) => {
+                element.addEventListener('mouseenter', () => setPreviewPlatform(platform));
+                element.addEventListener('focus', () => setPreviewPlatform(platform));
             });
-            tgLink.addEventListener('mouseenter', () => {
-                livePreviewBox.className = "preview-bubble telegram";
-            });
-            xLink.addEventListener('mouseenter', () => {
-                livePreviewBox.className = "preview-bubble";
-            });
+
+            liLink.addEventListener('click', (event) => copyBeforeOpening('linkedin', event));
+            fbLink.addEventListener('click', (event) => copyBeforeOpening('facebook', event));
         });
     </script>
 </body>

@@ -9,17 +9,18 @@ Website URL: https://benjelloun.dev/hmittou
 ## Features
 
 1. **Multi-Platform Support**:
-   * **WhatsApp**: Prefilled Arabic text formatted with native markdown.
-   * **Telegram**: Prefilled text sharing using standard query parameters.
-   * **X (Twitter)**: Clean 120-character sharing text well within the 280-character limit.
-   * **LinkedIn / Facebook**: URL sharing, leveraging **Open Graph tags** on the main website to auto-render rich card previews.
-   * **Clipboard Copy**: One-click text copying with active popup success feedback.
-   * **Web Share API**: Native mobile sharing for iOS and Android.
+   * **WhatsApp**: Prefilled Arabic text and URL, with WhatsApp-only markdown bold for the title.
+   * **Telegram**: Prefilled clean Arabic text plus a separate URL parameter, without markdown stars.
+   * **X (Twitter)**: Clean Arabic text plus a separate URL parameter, without markdown stars.
+   * **LinkedIn / Facebook**: URL sharing with title/summary or quote where supported, plus automatic clean-text copy before opening as a reliable fallback.
+   * **Clipboard Copy**: One-click clean text copying with no markdown stars.
+   * **Web Share API**: Native mobile sharing for iOS and Android using clean text plus URL.
 
 2. **Aesthetics & UX**:
    * Beautiful modern glassmorphism UI.
    * Native Dark / Light mode switcher with local memory persistence.
    * Live chat bubble preview simulator displaying exactly what is being shared.
+   * Platform-aware notes explaining markdown, clean text, and copy fallback behavior.
    * Fluid hover scales and transition animations.
 
 3. **Analytics Integration**:
